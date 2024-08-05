@@ -1,27 +1,15 @@
 ﻿using Dalamud.Game.ClientState.JobGauge.Types;
 using System;
 using XIVSlothCombo.Combos.PvE;
-using XIVSlothCombo.CustomComboNS.Functions;
+using static XIVSlothCombo.CustomComboNS.Functions.CustomComboFunctions;
 
 namespace XIVSlothCombo.Combos.JobHelpers
 {
     internal class RDMHelper
     {
-        static bool HasEffect(ushort id) => CustomComboFunctions.HasEffect(id);
-        static float GetBuffRemainingTime(ushort effectid) => CustomComboFunctions.GetBuffRemainingTime(effectid);
-        static bool LevelChecked(uint id) => CustomComboFunctions.LevelChecked(id);
-        static float GetActionCastTime(uint actionID) => CustomComboFunctions.GetActionCastTime(actionID);
-        static uint GetRemainingCharges(uint actionID) => CustomComboFunctions.GetRemainingCharges(actionID);
-        static float GetCooldownRemainingTime(uint actionID) => CustomComboFunctions.GetCooldownRemainingTime(actionID);
-        static bool ActionReady(uint id) => CustomComboFunctions.ActionReady(id);
-        static bool CanSpellWeave(uint id) => CustomComboFunctions.CanSpellWeave(id);
-        static bool HasCharges(uint id) => CustomComboFunctions.HasCharges(id);
-        static bool TraitLevelChecked(uint id) => CustomComboFunctions.TraitLevelChecked(id);
-        static byte GetBuffStacks(ushort id) => CustomComboFunctions.GetBuffStacks(id);
-
-        internal class RDMMana : PvE.RDM
+        internal class RDMMana : RDM
         {
-            private static RDMGauge Gauge => CustomComboFunctions.GetJobGauge<RDMGauge>();
+            private static RDMGauge Gauge => GetJobGauge<RDMGauge>();
             internal static int ManaStacks => Gauge.ManaStacks;
             internal static int Black => AdjustMana(Gauge.BlackMana);
             internal static int White => AdjustMana(Gauge.WhiteMana);
@@ -109,7 +97,7 @@ namespace XIVSlothCombo.Combos.JobHelpers
             }
         }
 
-        internal class MeleeFinisher : PvE.RDM
+        internal class MeleeFinisher : RDM
         {
             internal static bool CanUse(in uint lastComboMove, out uint actionID)
             {
@@ -165,11 +153,11 @@ namespace XIVSlothCombo.Combos.JobHelpers
             }
         }
 
-        internal class OGCDHelper : PvE.RDM
+        internal class OGCDHelper : RDM
         {
             internal static bool CanUse(in uint actionID, in bool SingleTarget, out uint newActionID)
             {
-                var distance = CustomComboFunctions.GetTargetDistance();
+                var distance = GetTargetDistance();
 
                 uint placeOGCD = 0;
 
@@ -186,13 +174,24 @@ namespace XIVSlothCombo.Combos.JobHelpers
 
 
                 //Grabs an oGCD to return based on radio options
-                if (engagement
+
+                //Prefulgence moved to top as we need to make sure it fires
+                if (placeOGCD == 0
+                    && prefulg
+                    && TraitLevelChecked(Traits.EnhancedManaficationIII)
+                    && HasEffect(Buffs.PrefulugenceReady))
+                    placeOGCD = Prefulgence;
+
+                if (placeOGCD == 0
+                    && engagement
                     && (GetRemainingCharges(Engagement) > engagementPool
                         || (GetRemainingCharges(Engagement) == 1 && GetCooldownRemainingTime(Engagement) < 3))
                     && LevelChecked(Engagement)
                     && distance <= 3)
                     placeOGCD = Engagement;
-                if (corpacorps
+
+                if (placeOGCD == 0
+                    && corpacorps
                     && (GetRemainingCharges(Corpsacorps) > corpsacorpsPool
                         || (GetRemainingCharges(Corpsacorps) == 1 && GetCooldownRemainingTime(Corpsacorps) < 3))
                     && ((GetRemainingCharges(Corpsacorps) >= GetRemainingCharges(Engagement)) || !LevelChecked(Engagement)) // Try to alternate between Corps-a-corps and Engagement
@@ -200,21 +199,21 @@ namespace XIVSlothCombo.Combos.JobHelpers
                     && distance <= corpacorpsRange)
                     placeOGCD = Corpsacorps;
 
-                if (contra
+                if (placeOGCD == 0
+                    && contra
                     && ActionReady(ContreSixte))
                     placeOGCD = ContreSixte;
-                if (fleche && ActionReady(Fleche))
+
+                if (placeOGCD == 0
+                    && fleche
+                    && ActionReady(Fleche))
                     placeOGCD = Fleche;
 
-                if (vice &&
-                    TraitLevelChecked(Traits.EnhancedEmbolden) &&
-                    HasEffect(Buffs.ThornedFlourish))
+                if (placeOGCD == 0
+                    && vice
+                    && TraitLevelChecked(Traits.EnhancedEmbolden)
+                    && HasEffect(Buffs.ThornedFlourish))
                     placeOGCD = ViceOfThorns;
-
-                if (prefulg &&
-                    TraitLevelChecked(Traits.EnhancedManaficationIII) &&
-                    HasEffect(Buffs.PrefulugenceReady))
-                    placeOGCD = Prefulgence;
 
                 if (CanSpellWeave(actionID) && placeOGCD != 0)
                 {
@@ -251,7 +250,7 @@ namespace XIVSlothCombo.Combos.JobHelpers
             }
         }
 
-        internal class RDMLucid : PvE.RDM
+        internal class RDMLucid : RDM
         {
             internal static bool SafetoUse(in uint lastComboMove)
             {
