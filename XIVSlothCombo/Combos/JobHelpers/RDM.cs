@@ -1,13 +1,14 @@
 ﻿using Dalamud.Game.ClientState.JobGauge.Types;
 using System;
 using XIVSlothCombo.Combos.PvE;
+using static XIVSlothCombo.Combos.PvE.RDM;
 using static XIVSlothCombo.CustomComboNS.Functions.CustomComboFunctions;
 
 namespace XIVSlothCombo.Combos.JobHelpers
 {
     internal class RDMHelper
     {
-        internal class RDMMana : RDM
+        internal class RDMMana
         {
             private static RDMGauge Gauge => GetJobGauge<RDMGauge>();
             internal static int ManaStacks => Gauge.ManaStacks;
@@ -97,7 +98,7 @@ namespace XIVSlothCombo.Combos.JobHelpers
             }
         }
 
-        internal class MeleeFinisher : RDM
+        internal class MeleeFinisher
         {
             internal static bool CanUse(in uint lastComboMove, out uint actionID)
             {
@@ -153,7 +154,7 @@ namespace XIVSlothCombo.Combos.JobHelpers
             }
         }
 
-        internal class OGCDHelper : RDM
+        internal class OGCDHelper
         {
             internal static bool CanUse(in uint actionID, in bool SingleTarget, out uint newActionID)
             {
@@ -250,7 +251,7 @@ namespace XIVSlothCombo.Combos.JobHelpers
             }
         }
 
-        internal class RDMLucid : RDM
+        internal class RDMLucid
         {
             internal static bool SafetoUse(in uint lastComboMove)
             {

@@ -81,8 +81,6 @@ namespace XIVSlothCombo.Combos.PvE
             // public const short placeholder = 0;
         }
 
-
-
         public static class Traits
         {
             public const uint
