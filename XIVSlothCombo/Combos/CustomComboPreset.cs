@@ -1494,97 +1494,115 @@ namespace XIVSlothCombo.Combos
 
         #region GUNBREAKER
 
-        #region ST
+        #region Simple ST
+        [ConflictingCombos(GNB_ST_Advanced, GNB_NoMercy_Cooldowns)]
+        [ReplaceSkill(GNB.KeenEdge)]
+        [CustomComboInfo("Simple Mode - Single Target", "Replace Keen Edge with its combo chain.\n This is the ideal selection for newcomers to the job.", GNB.JobID)]
+        GNB_ST_Simple = 7001,
+        #endregion
+
+        #region Simple AOE
+        [ConflictingCombos(GNB_AoE_Advanced, GNB_NoMercy_Cooldowns)]
+        [ReplaceSkill(GNB.DemonSlice)]
+        [CustomComboInfo("Simple Mode - AoE", "Replace Demon Slice with its combo chain.\n This is the ideal selection for newcomers to the job.", GNB.JobID)]
+        GNB_AoE_Simple = 7002,
+        #endregion
+
+        #region Advanced ST
+        [ConflictingCombos(GNB_ST_Simple)]
         [ReplaceSkill(GNB.KeenEdge)]
         [CustomComboInfo("Advanced Mode - Single Target", "Replace Keen Edge with its combo chain.\n Uses Burst Strike when you have 3 cartridges & your last combo action was Brutal Shell.", GNB.JobID)]
-        GNB_ST_MainCombo = 7001,
+        GNB_ST_Advanced = 7003,
 
         #region Lightning Shot
-        [ParentCombo(GNB_ST_MainCombo)]
+        [ParentCombo(GNB_ST_Advanced)]
         [CustomComboInfo("Lightning Shot Uptime Option", "Adds Lightning Shot to the main combo when you are out of range.", GNB.JobID)]
-        GNB_ST_RangedUptime = 7002,
+        GNB_ST_RangedUptime = 7004,
         #endregion
 
         #region Gnashing Fang
-        [ParentCombo(GNB_ST_MainCombo)]
+        [ParentCombo(GNB_ST_Advanced)]
         [CustomComboInfo("Gnashing Fang & Continuation Option", "Adds Gnashing Fang to the main combo.\n Gnashing Fang Starter option must be enabled or started manually and Sloth will finish it off.", GNB.JobID)]
-        GNB_ST_Gnashing = 7003,
+        GNB_ST_Gnashing = 7005,
 
         [ParentCombo(GNB_ST_Gnashing)]
         [CustomComboInfo("Gnashing Fang Starter Option", "Begins Gnashing Fang for you on the main combo.", GNB.JobID)]
-        GNB_ST_GnashingFang_Starter = 7004,
+        GNB_ST_GnashingFang_Starter = 7006,
         #endregion
 
         #region Cooldowns
-        [ParentCombo(GNB_ST_MainCombo)]
+        [ParentCombo(GNB_ST_Advanced)]
         [CustomComboInfo("Cooldowns Option", "Adds various cooldowns to the main combo when under No Mercy or when No Mercy is on cooldown.", GNB.JobID)]
-        GNB_ST_MainCombo_CooldownsGroup = 7005,
+        GNB_ST_Advanced_CooldownsGroup = 7007,
 
         [ConflictingCombos(GNB_NoMercy_Cooldowns)]
-        [ParentCombo(GNB_ST_MainCombo_CooldownsGroup)]
+        [ParentCombo(GNB_ST_Advanced_CooldownsGroup)]
         [CustomComboInfo("No Mercy Option", "Adds No Mercy to the main combo when at full ammo.", GNB.JobID)]
-        GNB_ST_NoMercy = 7006,
+        GNB_ST_NoMercy = 7008,
 
-        [ParentCombo(GNB_ST_MainCombo_CooldownsGroup)]
+        [ParentCombo(GNB_ST_Advanced_CooldownsGroup)]
         [CustomComboInfo("Danger/Blasting Zone Option", "Adds Danger/Blasting Zone to the main combo.", GNB.JobID)]
-        GNB_ST_BlastingZone = 7007,
+        GNB_ST_BlastingZone = 7009,
 
-        [ParentCombo(GNB_ST_MainCombo_CooldownsGroup)]
+        [ParentCombo(GNB_ST_Advanced_CooldownsGroup)]
         [CustomComboInfo("Bow Shock Option", "Adds Bow Shock to the main combo.", GNB.JobID)]
-        GNB_ST_BowShock = 7008,
+        GNB_ST_BowShock = 7010,
 
-        [ParentCombo(GNB_ST_MainCombo_CooldownsGroup)]
+        [ParentCombo(GNB_ST_Advanced_CooldownsGroup)]
         [CustomComboInfo("Bloodfest Option", "Adds Bloodfest to the main combo when ammo is 0.", GNB.JobID)]
-        GNB_ST_Bloodfest = 7009,
+        GNB_ST_Bloodfest = 7011,
 
-        [ParentCombo(GNB_ST_MainCombo_CooldownsGroup)]
+        [ParentCombo(GNB_ST_Advanced_CooldownsGroup)]
         [CustomComboInfo("Sonic Break Option", "Adds Sonic Break to the main combo.", GNB.JobID)]
-        GNB_ST_SonicBreak = 7010,
+        GNB_ST_SonicBreak = 7012,
 
-        [ParentCombo(GNB_ST_MainCombo_CooldownsGroup)]
+        [ParentCombo(GNB_ST_Advanced_CooldownsGroup)]
         [CustomComboInfo("Double Down Option", "Adds Double Down to the main combo when under No Mercy buff.", GNB.JobID)]
-        GNB_ST_DoubleDown = 7011,
+        GNB_ST_DoubleDown = 7013,
 
-        [ParentCombo(GNB_ST_MainCombo_CooldownsGroup)]
+        [ParentCombo(GNB_ST_Advanced_CooldownsGroup)]
         [CustomComboInfo("Reign combo Option", "Adds Reign/Noble/Lionheart to the main combo.", GNB.JobID)]
-        GNB_ST_Reign = 7012,
+        GNB_ST_Reign = 7014,
 
-        [ParentCombo(GNB_ST_MainCombo_CooldownsGroup)]
+        [ParentCombo(GNB_ST_Advanced_CooldownsGroup)]
         [CustomComboInfo("Burst Strike Option", "Adds Burst Strike and Hypervelocity (when available) to the main combo when under No Mercy and Gnashing Fang is over.", GNB.JobID)]
-        GNB_ST_BurstStrike = 7013,
+        GNB_ST_BurstStrike = 7015,
         #endregion
 
-        #region AoE
+        #endregion 
+
+        #region Advanced AoE
+        [ConflictingCombos(GNB_AoE_Simple)]
         [ReplaceSkill(GNB.DemonSlice)]
         [CustomComboInfo("Advanced Mode - AoE", "Replace Demon Slice with its combo chain.", GNB.JobID)]
-        GNB_AoE_MainCombo = 7200,
+        GNB_AoE_Advanced = 7200,
 
         [ConflictingCombos(GNB_NoMercy_Cooldowns)]
-        [ParentCombo(GNB_AoE_MainCombo)]
+        [ParentCombo(GNB_AoE_Advanced)]
         [CustomComboInfo("No Mercy Option", "Adds No Mercy to the AoE combo when it's available.", GNB.JobID)]
         GNB_AoE_NoMercy = 7201,
 
-        [ParentCombo(GNB_AoE_MainCombo)]
+        [ParentCombo(GNB_AoE_Advanced)]
         [CustomComboInfo("Danger/Blasting Zone Option", "Adds Danger/Blasting Zone to the AoE combo when it's available.", GNB.JobID)]
         GNB_AOE_DangerZone = 7202,
 
-        [ParentCombo(GNB_AoE_MainCombo)]
+        [ParentCombo(GNB_AoE_Advanced)]
         [CustomComboInfo("Bow Shock Option", "Adds Bow Shock onto the AoE combo when it's available.", GNB.JobID)]
         GNB_AoE_BowShock = 7203,
 
-        [ParentCombo(GNB_AoE_MainCombo)]
+        [ParentCombo(GNB_AoE_Advanced)]
         [CustomComboInfo("Bloodfest AoE Option", "Adds Bloodfest to the AoE combo when it's available.\n Will spend cartridges through Fated Circle to prepare for Bloodfest usage.", GNB.JobID)]
         GNB_AoE_Bloodfest = 7204,
 
-        [ParentCombo(GNB_AoE_MainCombo)]
+        [ParentCombo(GNB_AoE_Advanced)]
         [CustomComboInfo("Sonic Break Option", "Adds Sonic Break to the AoE combo when it's available.", GNB.JobID)]
         GNB_AOE_SonicBreak = 7205,
 
-        [ParentCombo(GNB_AoE_MainCombo)]
-        [CustomComboInfo("Double Down AoE Option", "Adds Double Down to the AoE combo when it's available and you have 2 or more cartrdiges.", GNB.JobID)]
+        [ParentCombo(GNB_AoE_Advanced)]
+        [CustomComboInfo("Double Down AoE Option", "Adds Double Down to the AoE combo when it's available and you have 2 or more cartridges.", GNB.JobID)]
         GNB_AoE_DoubleDown = 7206,
 
-        [ParentCombo(GNB_AoE_MainCombo)]
+        [ParentCombo(GNB_AoE_Advanced)]
         [CustomComboInfo("Ammo Overcap Option", "Adds Fated Circle to the AoE combo when about to overcap.", GNB.JobID)]
         GNB_AOE_Overcap = 7207,
         #endregion
@@ -1595,28 +1613,41 @@ namespace XIVSlothCombo.Combos
         GNB_GF_Continuation = 7300,
 
         [ParentCombo(GNB_GF_Continuation)]
-        [CustomComboInfo("Cooldowns on Gnashing Fang Option", "Adds Bloodfest/Bow Shock/Blasting Zone on Gnashing Fang, order dependent on No Mercy buff.", GNB.JobID)]
+        [CustomComboInfo("Cooldowns Option", "Adds Bloodfest/Bow Shock/Blasting Zone on Gnashing Fang, order dependent on No Mercy buff.", GNB.JobID)]
         GNB_GF_Cooldowns = 7301,
 
         [ParentCombo(GNB_GF_Continuation)]
-        [CustomComboInfo("No Mercy on Gnashing Fang Option", "Adds No Mercy to Gnashing Fang when available.", GNB.JobID)]
+        [CustomComboInfo("No Mercy Option", "Adds No Mercy to Gnashing Fang when available.", GNB.JobID)]
         GNB_GF_NoMercy = 7302,
 
         [ParentCombo(GNB_GF_Continuation)]
-        [CustomComboInfo("Double Down on Gnashing Fang Option", "Adds Double Down to Gnashing Fang under No Mercy when appropriate.", GNB.JobID)]
-        GNB_GF_DoubleDown = 7303,
+        [CustomComboInfo("Danger/Blasting Zone Option", "Adds Danger/Blasting Zone to Gnashing Fang when available.", GNB.JobID)]
+        GNB_GF_Zone = 7303,
 
         [ParentCombo(GNB_GF_Continuation)]
-        [CustomComboInfo("Sonic Break on Gnashing Fang Option", "Adds Sonic Break on Gnashing Fang under No Mercy when appropriate.", GNB.JobID)]
-        GNB_GF_SonicBreak = 7304,
+        [CustomComboInfo("Bow Shock Option", "Adds Bow Shock to Gnashing Fang when available.", GNB.JobID)]
+        GNB_GF_BowShock = 7304,
 
         [ParentCombo(GNB_GF_Continuation)]
-        [CustomComboInfo("Burst Strike on Gnashing Fang Option", "Adds Burst Strike on Gnashing Fang under No Mercy when appropriate.", GNB.JobID)]
-        GNB_GF_BurstStrike = 7305,
+        [CustomComboInfo("Bloodfest Option", "Adds Bloodfest to Gnashing Fang when available.", GNB.JobID)]
+        GNB_GF_Bloodfest = 7305,
 
         [ParentCombo(GNB_GF_Continuation)]
-        [CustomComboInfo("Reign combo on Gnashing Fang Option", "Adds Reign combo on Gnashing Fang under No Mercy when appropriate.", GNB.JobID)]
-        GNB_GF_Reign = 7306,
+        [CustomComboInfo("Sonic Break Option", "Adds Sonic Break on Gnashing Fang under No Mercy when appropriate.", GNB.JobID)]
+        GNB_GF_SonicBreak = 7306,
+
+        [ParentCombo(GNB_GF_Continuation)]
+        [CustomComboInfo("Double Down Option", "Adds Double Down to Gnashing Fang under No Mercy when appropriate.", GNB.JobID)]
+        GNB_GF_DoubleDown = 7307,
+
+        [ParentCombo(GNB_GF_Continuation)]
+        [CustomComboInfo("Reign combo Option", "Adds Reign combo on Gnashing Fang under No Mercy when appropriate.", GNB.JobID)]
+        GNB_GF_Reign = 7308,
+
+        [ParentCombo(GNB_GF_Continuation)]
+        [CustomComboInfo("Burst Strike Option", "Adds Burst Strike on Gnashing Fang under No Mercy when appropriate.", GNB.JobID)]
+        GNB_GF_BurstStrike = 7309,
+
         #endregion
 
         #region Burst Strike
@@ -1625,24 +1656,24 @@ namespace XIVSlothCombo.Combos
         GNB_BS = 7400,
 
         [ParentCombo(GNB_BS)]
-        [CustomComboInfo("Burst Strike Continuation Feature", "Adds Hypervelocity on Burst Strike.", GNB.JobID)]
+        [CustomComboInfo("Hypervelocity Option", "Adds Continuation (Hypervelocity) to Burst Strike.", GNB.JobID)]
         GNB_BS_Continuation = 7401,
 
         [ParentCombo(GNB_BS)]
-        [CustomComboInfo("Burst Strike to Bloodfest Feature", "Replace Burst Strike with Bloodfest if you have no powder gauge.", GNB.JobID)]
+        [CustomComboInfo("Bloodfest Option", "Replace Burst Strike with Bloodfest if under No Mercy & you have 0 cartridges.", GNB.JobID)]
         GNB_BS_Bloodfest = 7402,
 
         [ParentCombo(GNB_BS)]
-        [CustomComboInfo("Double Down on Burst Strike Feature", "Adds Double Down to Burst Strike when under No Mercy and ammo is above 2.", GNB.JobID)]
+        [CustomComboInfo("Double Down Option", "Adds Double Down to Burst Strike when under No Mercy and ammo is above 2.", GNB.JobID)]
         GNB_BS_DoubleDown = 7403,
 
         [ParentCombo(GNB_BS)]
-        [CustomComboInfo("Reign combo on Burst Strike Feature", "Adds Reign/Noble/Lionheart to Burst Strike when under No Mercy and when Double Down & Gnashing Fang are on cooldown.", GNB.JobID)]
+        [CustomComboInfo("Reign Combo Option", "Adds Reign/Noble/Lionheart to Burst Strike when under No Mercy and when Double Down & Gnashing Fang are on cooldown.", GNB.JobID)]
         GNB_BS_Reign = 7404,
         #endregion
 
         #region No Mercy
-        [ConflictingCombos(GNB_ST_NoMercy, GNB_AoE_NoMercy)]
+        [ConflictingCombos(GNB_ST_NoMercy, GNB_AoE_NoMercy, GNB_ST_Simple, GNB_AoE_Simple)]
         [ReplaceSkill(GNB.NoMercy)]
         [CustomComboInfo("No Mercy Features", "Collection of No Mercy related features.", GNB.JobID)]
         GNB_NoMercy_Cooldowns = 7500,
@@ -1662,15 +1693,15 @@ namespace XIVSlothCombo.Combos
         GNB_FC = 7600,
 
         [ParentCombo(GNB_FC)]
-        [CustomComboInfo("Fated Circle Continuation Feature", "Adds Continuation on Fated Circle.", GNB.JobID)]
+        [CustomComboInfo("Fated Brand Option", "Adds Continuation (Fated Brand) on Fated Circle.", GNB.JobID)]
         GNB_FC_Continuation = 7601,
 
         [ParentCombo(GNB_FC)]
-        [CustomComboInfo("Fated Circle to Bloodfest Feature", "Replace Fated Circle with Bloodfest if you have no powder gauge.", GNB.JobID)]
+        [CustomComboInfo("Bloodfest Option", "Replace Fated Circle with Bloodfest when under No Mercy & you have 0 cartridges.", GNB.JobID)]
         GNB_FC_Bloodfest = 7602,
 
         [ParentCombo(GNB_FC)]
-        [CustomComboInfo("Double Down on Fated Circle Feature", "Adds Double Down to Fated Circle when under No Mercy and ammo is above 2.", GNB.JobID)]
+        [CustomComboInfo("Double Down Option", "Adds Double Down to Fated Circle when under No Mercy and ammo is above 2.", GNB.JobID)]
         GNB_FC_DoubleDown = 7603,
         #endregion
 
@@ -1678,21 +1709,19 @@ namespace XIVSlothCombo.Combos
         GNB_AuroraProtection = 7700,
 
         [Variant]
-        [VariantParent(GNB_ST_MainCombo, GNB_AoE_MainCombo)]
+        [VariantParent(GNB_ST_Advanced, GNB_AoE_Advanced)]
         [CustomComboInfo("Spirit Dart Option", "Use Variant Spirit Dart whenever the debuff is not present or less than 3s.", GNB.JobID)]
         GNB_Variant_SpiritDart = 7033,
 
         [Variant]
-        [VariantParent(GNB_ST_MainCombo, GNB_AoE_MainCombo)]
+        [VariantParent(GNB_ST_Advanced, GNB_AoE_Advanced)]
         [CustomComboInfo("Cure Option", "Use Variant Cure when HP is below set threshold.", GNB.JobID)]
         GNB_Variant_Cure = 7034,
 
         [Variant]
-        [VariantParent(GNB_ST_MainCombo, GNB_AoE_MainCombo)]
+        [VariantParent(GNB_ST_Advanced, GNB_AoE_Advanced)]
         [CustomComboInfo("Ultimatum Option", "Use Variant Ultimatum on cooldown.", GNB.JobID)]
         GNB_Variant_Ultimatum = 7035,
-        #endregion
-
         #endregion
 
         #region MACHINIST
